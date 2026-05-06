@@ -1,0 +1,51 @@
+create database pawan;
+use pawan;
+CREATE TABLE Department (
+    dept_id INT,
+    dept_name VARCHAR(50) NOT NULL,
+    CONSTRAINT pk_dept PRIMARY KEY (dept_id),
+    CONSTRAINT uq_dept UNIQUE (dept_name)
+);
+
+CREATE TABLE Student (
+    student_id INT,
+    name VARCHAR(100) NOT NULL,
+    age INT,
+    email VARCHAR(100),
+    dept_id INT,
+    
+    CONSTRAINT pk_student PRIMARY KEY (student_id),
+    CONSTRAINT uq_email UNIQUE (email),
+    CONSTRAINT chk_age CHECK (age >= 18),
+    CONSTRAINT fk_dept FOREIGN KEY (dept_id)
+        REFERENCES Department(dept_id)
+);
+
+ALTER TABLE Student
+ADD phone VARCHAR(15);
+
+ALTER TABLE Student
+MODIFY name VARCHAR(150);
+
+ALTER TABLE Student RENAME TO Students;
+
+INSERT INTO Department (dept_id, dept_name)
+VALUES (1, 'Computer Engineering');
+
+INSERT INTO Department (dept_id, dept_name)
+VALUES (2, 'Civil Engineering');
+
+INSERT INTO Students
+(student_id, name, age, email, dept_id, phone)
+VALUES (101, 'Pawan', 20, 'pawan@gmail.com', 1, '9130276551');
+
+INSERT INTO Students
+(student_id, name, age, email, dept_id, phone)
+VALUES (102, 'Vaibhav', 22, 'vaibhav@gmail.com', 2, '9022487067');
+
+SELECT * FROM Department;
+SELECT * FROM Students;
+
+ TRUNCATE TABLE Students;
+ DROP TABLE Students;
+DROP TABLE Department;
